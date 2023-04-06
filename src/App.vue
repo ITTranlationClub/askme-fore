@@ -1,47 +1,53 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+import Home from './view/home.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Home
+  }
+}
+</script>
+
+<style lang="scss">
+@import url(./assets/font/iconfont.css);
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  font-size: 25px;
+  vertical-align: middle;
+  color: rgb(117,120,137);
+  transition: .3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#app {
+  //width: 100vw;
+  height: 100vh;
+  //background-color: rgb(151,157,167);
+  overflow: hidden;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+body {
+  box-sizing: border-box;
+}
+</style>
+<style>
+@font-face {
+  font-family: 'Oxygen';
+  src: url("@/assets/font/Oxygen-Light.ttf");
+}
+body {
+  font-family: Oxygen, Arial, sans-serif;
 }
 </style>
