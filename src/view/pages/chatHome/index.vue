@@ -2,8 +2,7 @@
   <div class="chatHome">
     <div class="chatLeft">
       <div class="title">
-        <h1>字节叔叔</h1>
-        <el-tag type="success">欢迎关注“字节叔叔”公众号</el-tag>
+        <h1>火羽鸟</h1>
         <br/>
       </div>
       <div class="online-person">
@@ -59,10 +58,12 @@ export default {
       chatWindowInfo: {},
     };
   },
-  mounted() {
+  mounted: function () {
     getFriend().then((res) => {
-      console.log(res);
       this.personList = res;
+      //1002为chatGpt
+      let menuInfo=this.personList.filter(item  => item .id =='1002')[0]
+      this.clickPerson(menuInfo)
     });
   },
   methods: {
@@ -74,7 +75,6 @@ export default {
     },
     personCardSort(id) {
       if (id !== this.personList[0].id) {
-        console.log(id);
         let nowPersonInfo;
         for (let i = 0; i < this.personList.length; i++) {
           if (this.personList[i].id == id) {

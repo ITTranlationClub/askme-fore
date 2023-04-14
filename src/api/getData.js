@@ -24,7 +24,7 @@ export const getChatMsg = params => {
   export const chatgpt = params => {
     return axios({
       method: 'post',
-      url: `http://localhost:9051/chatgpt/askquestion`,
+      url: `http://cc.chen-can.online:9051/askme/notoken/chatgpt/askquestion`,
       data: params,
       jsonp: 'handleCallback',
       headers: {

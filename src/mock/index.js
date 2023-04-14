@@ -1,4 +1,5 @@
 const Mock = require("mockjs");
+const moment = require('moment');
 
 Mock.mock(/friend\/friendList/, 'post', () => { //三个参数。第一个：路径，第二个：请求方式post/get，第三个：回调，返回值
     return friendList
@@ -61,8 +62,8 @@ let chatMsg1002 = Mock.mock(
         {
             headImg: require("@/assets/img/head_portrait1.png"),
             name: "chatgpt",
-            time: "09：12 AM",
-            msg: " gpt-3模型为您服务",
+            time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+            msg: " 火羽鸟AI模型为您服务",
             chatType: 0, //信息类型，0文字，1图片
             uid: "1002", //uid
         }

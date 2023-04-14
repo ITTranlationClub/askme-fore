@@ -9,16 +9,32 @@
         <div class="detail">{{ frinedInfo.detail }}</div>
       </div>
       <div class="other-fun">
-        <span class="iconfont icon-shipin" @click="video"> </span>
-        <span class="iconfont icon-gf-telephone" @click="telephone"></span>
-        <label for="docFile">
-          <span class="iconfont icon-wenjian"></span>
-        </label>
-        <label for="imgFile">
-          <span class="iconfont icon-tupian"></span>
-        </label>
-        <input type="file" name="" id="imgFile" @change="sendImg" accept="image/*" />
-        <input type="file" name="" id="docFile" @change="sendFile" accept="application/*,text/*" />
+        <el-form ref="form" label-width="120px">
+          <el-form-item>
+            <span slot="label" style="width: 80px;color: white">
+              预设角色
+            </span>
+            <el-select clearable v-model="paramsGpt.gptType" placeholder="请选择角色">
+              <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+
+<!--        <span class="iconfont icon-shipin" @click="video"> </span>-->
+<!--        <span class="iconfont icon-gf-telephone" @click="telephone"></span>-->
+<!--        <label for="docFile">-->
+<!--          <span class="iconfont icon-wenjian"></span>-->
+<!--        </label>-->
+<!--        <label for="imgFile">-->
+<!--          <span class="iconfont icon-tupian"></span>-->
+<!--        </label>-->
+<!--        <input type="file" name="" id="imgFile" @change="sendImg" accept="image/*" />-->
+<!--        <input type="file" name="" id="docFile" @change="sendFile" accept="application/*,text/*" />-->
         <!-- accept="application/*" -->
       </div>
     </div>
@@ -113,6 +129,8 @@ import { getChatMsg, chatgpt } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
+const moment = require('moment');
+
 export default {
   components: {
     HeadPortrait,
@@ -137,7 +155,18 @@ export default {
       showEmoji: false,
       friendInfo: {},
       srcImgList: [],
-      isSend: false
+      isSend: false,
+      paramsGpt:{},
+      options: [{
+        value: '1',
+        label: '面试官'
+      }, {
+        value: '2',
+        label: '情侣-女'
+      }, {
+        value: '3',
+        label: '情侣-男'
+      }],
     };
   },
   mounted() {
@@ -181,7 +210,7 @@ export default {
       if (this.inputMsg) {
         let chatMsg = {
           headImg: require("@/assets/img/head_portrait.jpg"),
-          name: "卧龙",
+          name: "火羽鸟",
           time: new Date().toLocaleTimeString(),
           msg: this.inputMsg,
           chatType: 0, //信息类型，0文字，1图片
@@ -190,7 +219,7 @@ export default {
         this.sendMsg(chatMsg);
         this.$emit('personCardSort', this.frinedInfo.id)
         this.inputMsg = "";
-        let data = {
+/*        let data = {
           prompt: chatMsg.msg,
           temperature: 1,
           top_p: 1,
@@ -199,21 +228,31 @@ export default {
           frequency_penalty: 0,
           presence_penalty: 0,
           stop: ["Human:", "AI:"]
-        }
+        }*/
         this.loading = true
         this.isSend = true;
         let chatGPT = {
           headImg: require("@/assets/img/head_portrait1.png"),
           name: "chatgpt",
-          time: new Date().toLocaleTimeString(),
+          time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
           msg: "",
           chatType: 0, //信息类型，0文字，1图片
           uid: "1002", //uid
         };
         this.sendMsg(chatGPT);
+        let data={
+          "model": "",
+          "paramsGpt":this.paramsGpt,
+          "messages": [
+            {
+              "role": "",
+              "content": chatMsg.msg,
+            }
+          ]
+        }
         chatgpt(data).then((res) => {
           this.isSend = false;
-          this.chatList[this.chatList.length-1].msg = res.choices[0].text;
+          this.chatList[this.chatList.length-1].msg = res.data;
         });
 
 

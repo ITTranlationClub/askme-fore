@@ -8,6 +8,7 @@ import MobileChat from "@/view/pages/chatHome/MobileChat.vue";
 import Home from "@/view/home.vue";
 
 export default new VueRouter({
+    mode:'history',
     routes: [
         {
             path: "/",
@@ -18,28 +19,35 @@ export default new VueRouter({
                     path: "/ChatHome",
                     name: "ChatHome",
                     component: ChatHome,
-                },
-                {
-                    path: "/Video",
-                    name: "Video",
-                    component: Video
-                },
-                {
-                    path: "/Lingting",
-                    name: "Lingting",
-                    component: Lingting
-                },
-                {
-                    path: "/Setting",
-                    name: "Setting",
-                    component: Setting
-                },
+                }
+                // {
+                //     path: "/Video",
+                //     name: "Video",
+                //     component: Video
+                // },
+                // {
+                //     path: "/Lingting",
+                //     name: "Lingting",
+                //     component: Lingting
+                // },
+                // {
+                //     path: "/Setting",
+                //     name: "Setting",
+                //     component: Setting
+                // },
             ]
         },
         {
-            path: "/MobileChat",
-            name: "MobileChat",
-            component: MobileChat,
+            path: "*",
+            redirect: "/ChatHome",
+            component: Home,
+            children: [
+                {
+                    path: "/ChatHome",
+                    name: "ChatHome",
+                    component: ChatHome,
+                }
+            ]
         },
     ]
 })

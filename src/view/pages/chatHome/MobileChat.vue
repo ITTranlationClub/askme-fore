@@ -161,7 +161,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mobile-chat-wrapper {
   display: flex;
   flex-direction: column;

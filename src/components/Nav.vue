@@ -30,13 +30,13 @@ export default {
     return {
       menuList: [
         "icon-xinxi",
-        "icon-shipin",
-        "icon-shu",
-        "icon-shandian",
-        "icon-shezhi",
+        // "icon-shipin",
+        // "icon-shu",
+        // "icon-shandian",
+        // "icon-shezhi",
       ],
       current: 0,
-      imgUrl: require('@/assets/img/head_portrait.jpg')
+      imgUrl: require('@/assets/img/youname.jpg')
     };
   },
   methods: {
